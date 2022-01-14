@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ada050102ca906a4aa35dbf3d068034d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - xstreets: {instanceID: 0}
+  - zstreets: {instanceID: 0}
+  - crossroad: {instanceID: 0}
+  - Waypoint: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
