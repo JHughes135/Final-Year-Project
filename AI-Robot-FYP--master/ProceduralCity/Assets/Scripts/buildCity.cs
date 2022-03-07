@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ public class buildCity : MonoBehaviour
     public GameObject[] waypoints;
     public int mapWidth = 100;
     public int mapHeight = 100;
-    int buildingFootprint = 20;
+    int buildingFootprint = 24;
     int[,] mapgrid;
     int i = 0;
 
@@ -24,14 +24,17 @@ public class buildCity : MonoBehaviour
     void Start()
     {
         mapgrid = new int[mapWidth, mapHeight];
+        
 
         for (int h = 0; h < mapHeight; h++)
         {
             for(int w = 0; w < mapHeight; w++)
             {
                 mapgrid[w,h] = (int) (Mathf.PerlinNoise(w / 10.0f, h / 10.0f) * 10);
+                
             }
         }
+        
 
 
         //build streets
@@ -42,7 +45,7 @@ public class buildCity : MonoBehaviour
             {
                 mapgrid[x, h] = -1;
             }
-            x += Random.Range(3, 3);
+            x += Random.Range(4, 4);
             if (x >= mapWidth)
                 break;
         }
@@ -59,7 +62,7 @@ public class buildCity : MonoBehaviour
                     mapgrid[w, z] = -2;
               
             }
-            z += Random.Range(4, 4);
+            z += Random.Range(3, 3);
             if (z >= mapHeight)
                 break;
         }
@@ -76,6 +79,8 @@ public class buildCity : MonoBehaviour
                     Instantiate(crossroad, pos, crossroad.transform.rotation);
                     waypoints[i] = Instantiate(Waypoint, pos, Waypoint.transform.rotation) as GameObject;
                     i++;
+
+                    Debug.Log("mapgrid: " + waypoints);
                 }
                 else if (result < -1)
                 {
@@ -106,12 +111,9 @@ public class buildCity : MonoBehaviour
                     Instantiate(buildings[4], pos, Quaternion.identity);
                 }
 
-
-
-
             }
         }
+        
     }
-
 
 }

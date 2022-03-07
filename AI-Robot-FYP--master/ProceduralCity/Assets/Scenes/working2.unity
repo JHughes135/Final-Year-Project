@@ -1550,6 +1550,8 @@ MonoBehaviour:
   nextInt: 0
   nextPoint: 0
   startpoint: 0
+  gameover: 0
+  firstMove: 0
 --- !u!54 &1248483952
 Rigidbody:
   m_ObjectHideFlags: 0

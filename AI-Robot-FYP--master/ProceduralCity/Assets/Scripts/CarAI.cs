@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +17,7 @@ public class CarAI : MonoBehaviour
     public int nextPoint;
     public int startpoint;
     public int gameover;
+    public int firstMove = 0;
 
     
     
@@ -34,37 +33,84 @@ public class CarAI : MonoBehaviour
         GameObject CityManager = GameObject.Find("CityManager");
         buildCity cityScript = CityManager.GetComponent<buildCity>();
         waypoints = cityScript.waypoints;
+        Debug.Log("waypoints " + waypoints);
         int gameover = 0;
 
         transform.position = new Vector3(waypoints[startpoint].transform.position.x, waypoints[startpoint].transform.position.y + 2, waypoints[startpoint].transform.position.z);
 
         currPoint = startpoint;
 
-        //nextChecked = Check(currPoint);
-       // next = Next(nextChecked);
-       // nextInt = Direction(next);
-       // nextPoint = currPoint + nextInt;
+        nextChecked = Check(currPoint);
+        next = Next(nextChecked);
+        nextInt = Direction(next);
+        nextPoint = currPoint + nextInt;
+
+      
 
     }
+
+
+     //If car is within radius of nextPoint update nextpoint
+        // if (Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) < WPradius){
+
+        //     Debug.Log("car arrived");
+
+        //     //firstMove++;
+            
+        //     currPoint = nextPoint;
+        
+        //     nextChecked = Check(currPoint);
+        //     next = Next(nextChecked);
+        //     nextInt = Direction(next);
+        //     nextPoint = currPoint + nextInt;
+
+        //     //transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
+
+            
+        // }//car moves toward next point until it is inside the raduius of the waypoint
+        // if(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
+            
+        //     while(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
+        //         transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
+
+        //     }
+        // }
+
+
 
 
     // Update is called once per frame
     void Update()
     {
+
     
-        //car moves toward next point until it is inside the raduius of the waypoint
+        //If car is within radius of nextPoint update nextpoint
         if (Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) < WPradius){
 
             Debug.Log("car arrived");
+
+            //firstMove++;
             
+            currPoint = nextPoint;
+        
+            nextChecked = Check(currPoint);
+            next = Next(nextChecked);
+            nextInt = Direction(next);
+            nextPoint = currPoint + nextInt;
+
+            //transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
+
+            
+        }//car moves toward next point until it is inside the raduius of the waypoint
+        if(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
+            
+            //while(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
+                transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
+
+           // }
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
-    
-        nextChecked = Check(currPoint);
-        next = Next(nextChecked);
-        nextInt = Direction(next);
-        nextPoint = currPoint + nextInt;
+        
     }
 
 
@@ -74,25 +120,25 @@ public class CarAI : MonoBehaviour
         if(dir == "up")
         {
 
-            return (9);
+            return (-9);
         }
 
         else if (dir == "down")
         {
 
-            return (-9);
+            return (9);
         }
 
         else if (dir == "left")
         {
 
-            return (-1);
+            return (1);
         }
 
         else if (dir == "right")
         {
 
-            return (1);
+            return (-1);
         }
         else
         {
@@ -110,7 +156,7 @@ public class CarAI : MonoBehaviour
 
         if(locType == 3)
         {
-            int rand = Random.Range(0, 1);
+            int rand = Random.Range(0, 2);
 
             if (rand == 0)
             {
@@ -127,7 +173,7 @@ public class CarAI : MonoBehaviour
 
         if (locType == 1)
         {
-            int rand = Random.Range(0, 2);
+            int rand = Random.Range(0, 3);
 
             if (rand == 0)
             {
@@ -147,7 +193,7 @@ public class CarAI : MonoBehaviour
 
         if (locType == 2)
         {
-            int rand = Random.Range(0, 2);
+            int rand = Random.Range(0, 3);
 
             if (rand == 0)
             {
@@ -155,7 +201,7 @@ public class CarAI : MonoBehaviour
             }
             else if (rand == 1)
             {
-                next = "down";
+                next = "up";
             }
             else if (rand == 2)
             {
@@ -167,7 +213,7 @@ public class CarAI : MonoBehaviour
 
         if (locType == 3)
         {
-            int rand = Random.Range(0, 2);
+            int rand = Random.Range(0, 3);
 
             if (rand == 0)
             {
@@ -177,17 +223,17 @@ public class CarAI : MonoBehaviour
             {
                 next = "down";
             }
-            else if (rand == 2)
-            {
-                next = "up";
-            }
+            // else if (rand == 2)
+            // {
+            //     next = "up";
+            // }
 
             return next;
         }
 
         if (locType == 4)
         {
-            int rand = Random.Range(0, 1);
+            int rand = Random.Range(0, 2);
 
             if (rand == 0)
             {
@@ -203,7 +249,7 @@ public class CarAI : MonoBehaviour
 
         if (locType == 5)
         {
-            int rand = Random.Range(0, 1);
+            int rand = Random.Range(0, 2);
 
             if (rand == 0)
             {
@@ -219,7 +265,7 @@ public class CarAI : MonoBehaviour
 
         if (locType == 6)
         {
-            int rand = Random.Range(0, 1);
+            int rand = Random.Range(0, 2);
 
             if (rand == 0)
             {
@@ -235,7 +281,7 @@ public class CarAI : MonoBehaviour
 
         if (locType == 7)
         {
-            int rand = Random.Range(0, 2);
+            int rand = Random.Range(0, 3);
 
             if (rand == 0)
             {
@@ -255,7 +301,7 @@ public class CarAI : MonoBehaviour
 
         if (locType == 8)
         {
-            int rand = Random.Range(0, 3);
+            int rand = Random.Range(0, 4);
 
             if (rand == 0)
             {
@@ -284,43 +330,52 @@ public class CarAI : MonoBehaviour
 
     int Check(int currentLoc)
     {
+
+        int other = 0;
       
-        if (currentLoc % 9 == 0)
+        if ((currentLoc % 9 == 0) && (currentLoc != 99) )
         {
             locType = 1;
+            other++;
             
         }
         else if ((currentLoc >= 1) && (currentLoc <= 7))
         {
             locType = 2;
+            other++;
             
         }
         else if (currentLoc == 0)
         {
             locType = 3;
+            other++;
            
         }
         else if (currentLoc == 8)
         {
             locType = 4;
+            other++;
             
         }
         else if (currentLoc == 107)
         {
             locType = 5;
+            other++;
            
         }
         else if (currentLoc == 99)
         {
             locType = 6;
+            other++;
             
         }
         else if ((currentLoc >= 100) && (currentLoc <= 106))
         {
             locType = 7;
+            other++;
             
         }
-        else
+        else if (other != 1)
         {
             locType = 8;
         } 
