@@ -17,3 +17,6 @@ I was met with some issues and was limited on time with my project. I’m curren
 
 ## Player View
 ![Screenshot (2)](https://user-images.githubusercontent.com/23383259/157845920-fecbf599-1704-43a3-accd-b6bfd0444013.png)
+
+## 3D Ai Car Model
+![Screenshot (6)](https://user-images.githubusercontent.com/23383259/157846877-94dc672b-90cb-4fd9-a750-fc30a6dbfc86.png)
