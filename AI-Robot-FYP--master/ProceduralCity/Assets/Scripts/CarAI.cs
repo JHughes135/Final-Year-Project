@@ -9,8 +9,8 @@ public class CarAI : MonoBehaviour
     public float WPradius = 1;
     public int currPoint;
     public string next;
-    float rotSpeed;
     public float speed = 10;
+    public float rotSpeed = 2f;
     int locType;
     public int nextChecked;
     public int nextInt;
@@ -18,6 +18,7 @@ public class CarAI : MonoBehaviour
     public int startpoint;
     public int gameover;
     public int firstMove = 0;
+    public Transform Car;
 
     
     
@@ -46,36 +47,8 @@ public class CarAI : MonoBehaviour
         nextPoint = currPoint + nextInt;
 
       
-
+ 
     }
-
-
-     //If car is within radius of nextPoint update nextpoint
-        // if (Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) < WPradius){
-
-        //     Debug.Log("car arrived");
-
-        //     //firstMove++;
-            
-        //     currPoint = nextPoint;
-        
-        //     nextChecked = Check(currPoint);
-        //     next = Next(nextChecked);
-        //     nextInt = Direction(next);
-        //     nextPoint = currPoint + nextInt;
-
-        //     //transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
-
-            
-        // }//car moves toward next point until it is inside the raduius of the waypoint
-        // if(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
-            
-        //     while(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
-        //         transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
-
-        //     }
-        // }
-
 
 
 
@@ -85,7 +58,7 @@ public class CarAI : MonoBehaviour
 
     
         //If car is within radius of nextPoint update nextpoint
-        if (Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) < WPradius){
+        if (Vector3.Distance(waypoints[nextPoint].transform.position, Car.transform.position) < WPradius){
 
             Debug.Log("car arrived");
 
@@ -98,16 +71,22 @@ public class CarAI : MonoBehaviour
             nextInt = Direction(next);
             nextPoint = currPoint + nextInt;
 
+            Vector3 direction = waypoints[nextPoint].transform.position - Car.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            gameObject.transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotSpeed * Time.deltaTime);
+
             //transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
 
             
         }//car moves toward next point until it is inside the raduius of the waypoint
         if(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
             
-            //while(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
-                transform.position = Vector3.MoveTowards(transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
+                Vector3 direction = waypoints[nextPoint].transform.position - Car.transform.position;
+                // Quaternion rotation = Quaternion.LookRotation(direction);
+                // gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, rotation, rotSpeed * Time.deltaTime);
 
-           // }
+                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
+                Debug.DrawRay(transform.position, direction, Color.green);
         }
 
         
@@ -201,7 +180,7 @@ public class CarAI : MonoBehaviour
             }
             else if (rand == 1)
             {
-                next = "up";
+                next = "down";
             }
             else if (rand == 2)
             {
@@ -323,6 +302,28 @@ public class CarAI : MonoBehaviour
             return next;
         }
 
+        
+
+        if (locType == 9)
+        {
+            int rand = Random.Range(0, 3);
+
+            if (rand == 0)
+            {
+                next = "right";
+            }
+            else if (rand == 1)
+            {
+                next = "down";
+            }
+            else if (rand == 2)
+            {
+                next = "up";
+            }
+
+            return next;
+        }
+
         return("error");
 
 
@@ -375,10 +376,16 @@ public class CarAI : MonoBehaviour
             other++;
             
         }
-        else if (other != 1)
+        else if (other != 1) 
         {
             locType = 8;
         } 
+        else if((currentLoc == 17) || (currentLoc == 26) || (currentLoc == 35) || (currentLoc == 44) || (currentLoc == 53) || (currentLoc == 62) || (currentLoc == 71) || (currentLoc == 80) || (currentLoc == 89) || (currentLoc == 98)){
+            locType = 9;
+            other++;
+        }
+
+
         return (locType);
     }
 }

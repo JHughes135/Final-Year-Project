@@ -77,7 +77,9 @@ public class buildCity : MonoBehaviour
                 if (result < -2)
                 {
                     Instantiate(crossroad, pos, crossroad.transform.rotation);
+                    pos.y += 1;
                     waypoints[i] = Instantiate(Waypoint, pos, Waypoint.transform.rotation) as GameObject;
+                    pos.y -= 1;
                     i++;
 
                     Debug.Log("mapgrid: " + waypoints);

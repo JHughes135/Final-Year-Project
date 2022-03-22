@@ -10,11 +10,16 @@ public class Manager : MonoBehaviour
     public GameObject player;
     public GameObject aiCar;
     public GameObject Goal;
+    public GameOverScreen GameOverScreen;
+    public GameWinScreen GameWinScreen;
+    public GameObject[] TagsAI;
 
     // Start is called before the first frame update
     void Start()
     {
         goalpoint = Random.Range(0, 107);
+
+        TagsAI = GameObject.FindGameObjectsWithTag("AI");
 
         GameObject CityManager = GameObject.Find("CityManager");
         //GameObject player = GameObject.Find("Human");
@@ -34,10 +39,16 @@ public class Manager : MonoBehaviour
 
         }
 
-        if (Vector3.Distance(aiCar.transform.position, player.transform.position) < WPradius)
+        foreach( GameObject car in TagsAI )
+        {
+
+        if (Vector3.Distance(car.transform.position, player.transform.position) < WPradius)
         {
 
             GameOver();
+            
+
+        }
 
         }
     }
@@ -46,11 +57,13 @@ public class Manager : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Game Over");
+        GameOverScreen.Setup();
     }
 
     void Win()
     {
         Debug.Log("You Win!!");
+        GameWinScreen.Setup();
     }
 }
 
