@@ -82,8 +82,8 @@ public class CarAI : MonoBehaviour
         if(Vector3.Distance(waypoints[nextPoint].transform.position, gameObject.transform.position) > WPradius){
             
                 Vector3 direction = waypoints[nextPoint].transform.position - Car.transform.position;
-                // Quaternion rotation = Quaternion.LookRotation(direction);
-                // gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, rotation, rotSpeed * Time.deltaTime);
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, rotation, rotSpeed * Time.deltaTime);
 
                 gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, waypoints[nextPoint].transform.position, Time.deltaTime * speed);
                 Debug.DrawRay(transform.position, direction, Color.green);
