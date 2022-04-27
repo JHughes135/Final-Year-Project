@@ -1,6 +1,6 @@
 ## Final-Year-Project
 
-The goal of my project was to create a game involving a basic self-driving car AI, a human player and a procedurally generated city environment within Unity 3D. The AI was created using C# scripts.
+The goal of my project is to create a game involving a basic self-driving car AI, a human player and a procedurally generated city environment within Unity 3D. The AI was created using C# scripts.
 
 The design of the game is:
 
