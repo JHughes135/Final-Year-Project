@@ -99,25 +99,25 @@ public class CarAI : MonoBehaviour
         if(dir == "up")
         {
 
-            return (-9);
+            return (9);
         }
 
         else if (dir == "down")
         {
 
-            return (9);
+            return (-9);
         }
 
         else if (dir == "left")
         {
 
-            return (1);
+            return (-1);
         }
 
         else if (dir == "right")
         {
 
-            return (-1);
+            return (1);
         }
         else
         {
@@ -133,30 +133,13 @@ public class CarAI : MonoBehaviour
     string Next(int locType)
     {
 
-        if(locType == 3)
-        {
-            int rand = Random.Range(0, 2);
-
-            if (rand == 0)
-            {
-                next = "left";
-            }
-            else if (rand == 1)
-            {
-                next = "down";
-            }
-
-            return next;
-
-        }
-
         if (locType == 1)
         {
             int rand = Random.Range(0, 3);
 
             if (rand == 0)
             {
-                next = "left";
+                next = "right";
             }
             else if (rand == 1)
             {
@@ -180,7 +163,7 @@ public class CarAI : MonoBehaviour
             }
             else if (rand == 1)
             {
-                next = "down";
+                next = "up";
             }
             else if (rand == 2)
             {
@@ -190,24 +173,21 @@ public class CarAI : MonoBehaviour
             return next;
         }
 
-        if (locType == 3)
+        if(locType == 3)
         {
-            int rand = Random.Range(0, 3);
+            int rand = Random.Range(0, 2);
 
             if (rand == 0)
             {
-                next = "left";
+                next = "up";
             }
             else if (rand == 1)
             {
-                next = "down";
+                next = "right";
             }
-            // else if (rand == 2)
-            // {
-            //     next = "up";
-            // }
 
             return next;
+
         }
 
         if (locType == 4)
@@ -216,11 +196,11 @@ public class CarAI : MonoBehaviour
 
             if (rand == 0)
             {
-                next = "down";
+                next = "up";
             }
             else if (rand == 1)
             {
-                next = "right";
+                next = "left";
             }
 
             return next;
@@ -232,11 +212,11 @@ public class CarAI : MonoBehaviour
 
             if (rand == 0)
             {
-                next = "up";
+                next = "down";
             }
             else if (rand == 1)
             {
-                next = "right";
+                next = "left";
             }
 
             return next;
@@ -248,11 +228,11 @@ public class CarAI : MonoBehaviour
 
             if (rand == 0)
             {
-                next = "left";
+                next = "down";
             }
             else if (rand == 1)
             {
-                next = "up";
+                next = "right";
             }
 
             return next;
@@ -272,7 +252,7 @@ public class CarAI : MonoBehaviour
             }
             else if (rand == 2)
             {
-                next = "up";
+                next = "down";
             }
 
             return next;
@@ -310,7 +290,7 @@ public class CarAI : MonoBehaviour
 
             if (rand == 0)
             {
-                next = "right";
+                next = "left";
             }
             else if (rand == 1)
             {
@@ -334,13 +314,13 @@ public class CarAI : MonoBehaviour
 
         int other = 0;
       
-        if ((currentLoc % 9 == 0) && (currentLoc != 99) )
+        if ((currentLoc % 9 == 0) && (currentLoc != 99) && (currentLoc != 9))
         {
             locType = 1;
             other++;
             
         }
-        else if ((currentLoc >= 1) && (currentLoc <= 7))
+        else if ((currentLoc >= 1) && (currentLoc <= 8))
         {
             locType = 2;
             other++;
