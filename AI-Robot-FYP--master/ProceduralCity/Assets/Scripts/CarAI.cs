@@ -314,13 +314,13 @@ public class CarAI : MonoBehaviour
 
         int other = 0;
       
-        if ((currentLoc % 9 == 0) && (currentLoc != 99) && (currentLoc != 9))
+        if ((currentLoc % 9 == 0) && (currentLoc != 99) && (currentLoc != 0))
         {
             locType = 1;
             other++;
             
         }
-        else if ((currentLoc >= 1) && (currentLoc <= 8))
+        else if ((currentLoc >= 1) && (currentLoc <= 7))
         {
             locType = 2;
             other++;
